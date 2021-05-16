@@ -39,6 +39,18 @@ RUN apt-get install -y software-properties-common \
   && gem update --system 3.0.3 \
   && gem install bundler -v 1.17.3 --no-document
 
+### DART
+
+# Install Dart 
+ENV PUB_CACHE=/opt/dart-sdk/.pub-cache \
+  PUB_ENVIRONMENT="dependabot" \
+  PATH="${PATH}:/opt/dart-sdk/.pub-cache/bin" \
+  PATH="${PATH}:/opt/dart-sdk/bin"
+RUN curl --connect-timeout 15 --retry 5 "https://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/dartsdk-linux-x64-release.zip" > "${HOME}/dartsdk.zip" \
+  && unzip "${HOME}/dartsdk.zip" -d "/opt" > /dev/null \
+  && rm "${HOME}/dartsdk.zip" \
+  && dart --version
+
 ### PUB
 
 # Clone Dependabot Pub
