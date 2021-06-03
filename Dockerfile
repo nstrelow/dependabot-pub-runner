@@ -50,6 +50,10 @@ RUN curl --connect-timeout 15 --retry 5 "https://storage.googleapis.com/dart-arc
   && unzip "${HOME}/dartsdk.zip" -d "/opt" > /dev/null \
   && rm "${HOME}/dartsdk.zip" \
   && dart --version
+  
+# Install Flutter
+ENV PATH="${PATH}:/opt/flutter/bin"
+RUN git clone https://github.com/flutter/flutter.git -b stable "/opt/flutter" && flutter precache && flutter --version
 
 ### PUB
 
